@@ -25,3 +25,12 @@ def save(request):
 def detail(request, id):
     oneCharacter = Character.objects.get(pk=id)
     return render(request, 'characters/detail.html', {"character": oneCharacter})
+
+
+
+def puntoUno(request):
+    list = Character.objects.filter(name__startswith='T')
+    html = ""
+    for character in list:
+        html= html + character.name+"<br>"
+    return HttpResponse(html)
