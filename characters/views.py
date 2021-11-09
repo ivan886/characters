@@ -1,12 +1,21 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from characters.models import Character
+from characters.models import Character, Universe
 # Create your views here.
 
 
+def test(request):
+    return HttpResponse(request)
+
 def list(request):
+    universes = Universe.objects.all()
     list = Character.objects.all()
-    return render(request, 'characters/index.html',{"list":list })
+    return render(request, 'characters/index.html',{"list":list, "universes":universes })
+
+def list_filter(request, id):
+    universes = Universe.objects.all()
+    list = Character.objects.filter(universe=id)
+    return render(request, 'characters/index.html',{"list":list, "universes":universes })
 
 
 def save(request):
