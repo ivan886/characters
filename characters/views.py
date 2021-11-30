@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from characters.models import Character, Universe
@@ -7,6 +8,8 @@ from characters.models import Character, Universe
 def test(request):
     return HttpResponse(request)
 
+
+@login_required
 def list(request):
     universes = Universe.objects.all()
     list = Character.objects.all()
@@ -17,7 +20,7 @@ def list_filter(request, id):
     list = Character.objects.filter(universe=id)
     return render(request, 'characters/index.html',{"list":list, "universes":universes })
 
-
+@login_required
 def save(request):
     if "GET" == request.method:
         return render(request, 'characters/save.html')
@@ -30,7 +33,7 @@ def save(request):
     return redirect('characters:list_characters')
 
 
-
+@login_required
 def detail(request, id):
     oneCharacter = Character.objects.get(pk=id)
     return render(request, 'characters/detail.html', {"character": oneCharacter})

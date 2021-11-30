@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">-->
+</head>
+
+<body>
+      <div class="container">
+    <p>autenticacion</p>
+    <form method="POST" action="{% url "login" %}">
+     {% csrf_token %}
+          <label>Username</label>
+        <input type="text" name="username"><br>
+        <label>Password</label>
+          <input type="text" name="password">
+          <br>
+        <button type="submit">login </button>
+    </form>
+      {% if error %}
+          <h4>{{  error}}</h4>
+      {% endif  %}
+    </div>
+</body>
+</html>
+
